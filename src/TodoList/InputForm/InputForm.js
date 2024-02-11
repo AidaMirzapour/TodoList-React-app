@@ -6,6 +6,7 @@ export default function InputForm(props) {
     <form className={style.InputForm} onSubmit={props.onSubmitForm}>
       <p>{props.taskName}</p>
       <input
+        autoFocus
         type="text"
         className={style.titleInput}
         onChange={props.onChangeTitle}
