@@ -15,7 +15,7 @@ export default function TodoList() {
   const [inputMode, setInputMode] = useState(["edit", "add"]);
 
   function editTask(e, index) {
-    const editedTask = todos.map((item, cuIndex) => {
+    const editedTask = todos.map((item, index, cuIndex) => {
       if (index === cuIndex) {
         let newTitle = item.title;
         let newDesc = item.desc;
@@ -24,7 +24,7 @@ export default function TodoList() {
           newTitle = todo.title;
           newDesc = todo.desc;
         }
-        return { title: newTitle, desc: newDesc };
+        return { newTitle: newTitle, newDesc: newDesc };
       }
       return item;
     });
@@ -82,14 +82,15 @@ export default function TodoList() {
       </button>
       {inputMode === "add" ? (
         <InputForm
-          taskName={"add"}
+          taskName={"add new task"}
           onChangeTitle={(e) => setTodo({ ...todo, title: e.target.value })}
           onChangeDesc={(e) => setTodo({ ...todo, desc: e.target.value })}
           onSubmitForm={addTask}
         />
       ) : inputMode === "edit" ? (
         <InputForm
-          taskName={"edit"}
+          //onEditBtnClick={(e, index) => index + 1}
+          taskName={`edit task X`}
           onChangeTitle={(e) => setTodo({ ...todo, title: e.target.value })}
           onChangeDesc={(e) => setTodo({ ...todo, desc: e.target.value })}
           onSubmitForm={editTask}
