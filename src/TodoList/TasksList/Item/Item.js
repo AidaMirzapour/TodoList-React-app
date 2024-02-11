@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "./Button/Button";
 import style from "./Item.module.css";
 
@@ -17,13 +17,16 @@ export default function Item(props) {
     if (typeof props.onEditBtnClick !== "undefined")
       props.onEditBtnClick(e, props.index);
   };
+  //how rerender hole component?
+  useEffect(() => {}, [props]);
+  console.log(props.array.focus);
 
   return (
-    <div>
+    <div className={style.Item}>
       <p onClick={handleClick} className={style.taskTitle}>
         {props.title}
       </p>
-      <div>
+      <div className={style.btns}>
         {" "}
         <Button
           onClickBtn={handleEditClick}
@@ -48,6 +51,7 @@ export default function Item(props) {
           }
         />{" "}
       </div>
+
       {props.array.focus === true ? <p>{props.array.desc}</p> : null}
     </div>
   );
