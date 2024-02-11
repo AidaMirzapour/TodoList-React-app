@@ -1,0 +1,14 @@
+.InputForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.titleInput , .descInput , .submitInput{
+    margin: 10px;
+    width: 250px;
+    padding: 10px 15px;
+}
