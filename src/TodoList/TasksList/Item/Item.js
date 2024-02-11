@@ -1,22 +1,32 @@
 import React from "react";
 import Button from "./Button/Button";
+import style from "./Item.module.css";
 
 export default function Item(props) {
   const handleClick = (e) => {
-    if (typeof props.onClick !== "undefined") props.onClick(e, props.index);
+    if (typeof props.onTitleClick !== "undefined")
+      props.onTitleClick(e, props.index);
   };
 
   const handleDeleteClick = (e) => {
-    if (typeof props.onDeleteBtnClick !== "undefined") props.onDeleteBtnClick(e, props.index);}
+    if (typeof props.onDeleteBtnClick !== "undefined")
+      props.onDeleteBtnClick(e, props.index);
+  };
 
-  
+  const handleEditClick = (e) => {
+    if (typeof props.onEditBtnClick !== "undefined")
+      props.onEditBtnClick(e, props.index);
+  };
+
   return (
     <div>
-      <p onClick={handleClick}>{props.title}</p>
+      <p onClick={handleClick} className={style.taskTitle}>
+        {props.title}
+      </p>
       <div>
         {" "}
         <Button
-          onClickBtn={props.editTask}
+          onClickBtn={handleEditClick}
           img={
             <img
               width="15"
@@ -38,7 +48,7 @@ export default function Item(props) {
           }
         />{" "}
       </div>
-      {props.focus === true ? <p>{props.desc}</p> : null}
+      {props.array.focus === true ? <p>{props.array.desc}</p> : null}
     </div>
   );
 }

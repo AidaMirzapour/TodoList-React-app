@@ -14,13 +14,29 @@ export default function TodoList() {
   const [todo, setTodo] = useState({});
   const [inputMode, setInputMode] = useState(["edit", "add"]);
 
-  function editTask(event) {}
+  function editTask(e, index) {
+    const editedTask = todos.map((item, cuIndex) => {
+      if (index === cuIndex) {
+        let newTitle = item.title;
+        let newDesc = item.desc;
 
-  function deleteTask(e , index) {
-    const delTask = todos.filter((item, cuIndex) => (index !== cuIndex));
-    setTodos(delTask);
+        if (todo.title && todo.desc) {
+          item.title = todo.title;
+          item.desc = todo.desc;
+        }
+        return { title: newTitle, desc: newDesc };
+      }
+      return item;
+    });
+    setTodos(editedTask);
+    setTodo({});
+    setInputMode([]);
   }
 
+  function deleteTask(e, index) {
+    const delTask = todos.filter((item, cuIndex) => index !== cuIndex);
+    setTodos(delTask);
+  }
 
   function onFocus(e, index) {
     todos.map((item, cuIndex) => {
@@ -43,7 +59,7 @@ export default function TodoList() {
       ];
       setTodos(newList);
       setTodo({});
-      setInputMode([])
+      setInputMode([]);
     }
   }
 
@@ -52,7 +68,7 @@ export default function TodoList() {
       <h1>Todo List</h1>
       <TasksList
         array={todos}
-        editTask={editTask}
+        onEditBtnClick={(e) => setInputMode("edit")}
         onDeleteBtnClick={deleteTask}
         onItemClick={onFocus}
       />
