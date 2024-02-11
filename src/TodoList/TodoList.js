@@ -21,8 +21,8 @@ export default function TodoList() {
         let newDesc = item.desc;
 
         if (todo.title && todo.desc) {
-          item.title = todo.title;
-          item.desc = todo.desc;
+          newTitle = todo.title;
+          newDesc = todo.desc;
         }
         return { title: newTitle, desc: newDesc };
       }
