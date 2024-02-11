@@ -1,14 +1,32 @@
-.InputForm{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    border: 1px solid black;
-    padding: 20px;
+.InputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 20px;
+  background-color: lightblue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 280px;
 }
 
-.titleInput , .descInput , .submitInput{
-    margin: 10px;
-    width: 250px;
-    padding: 10px 15px;
+.titleInput,
+.descInput,
+.submitInput {
+  margin: 10px;
+  width: 250px;
+  padding: 10px 15px;
+}
+
+.titleInput {
+  box-sizing: border-box;
+}
+
+.descInput {
+  box-sizing: border-box;
+  resize: none;
 }

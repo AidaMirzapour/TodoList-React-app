@@ -1,3 +1,22 @@
+.Item {
+  display: flex;
+  justify-content: space-between;
+}
+
 .taskTitle {
   cursor: pointer;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+}
+
+.btns button {
+  margin: 3px;
+  padding: 5px;
+  border: 2px solid lightblue;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 50%;
 }

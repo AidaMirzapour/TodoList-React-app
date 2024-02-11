@@ -1,3 +1,8 @@
-.App{
+.App {
   text-align: center;
+  background: linear-gradient(
+    178.6deg,
+    rgb(232, 245, 253) 3.3%,
+    rgb(252, 253, 255) 109.6%
+  );
 }
