@@ -11,7 +11,7 @@ export default function InputForm(props) {
         onChange={props.onChangeTitle}
       />
       <textarea className={style.descInput} onChange={props.onChangeDesc} />
-      <input type="submit" className={style.submitInput} />
+      <input type="submit" className={style.submitInput} value={props.value} />
     </form>
   );
 }
