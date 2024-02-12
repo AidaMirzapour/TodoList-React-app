@@ -5,6 +5,7 @@
 
 .taskTitle {
   cursor: pointer;
+  font-weight: bold;
 }
 
 .btns {
@@ -19,4 +20,9 @@
   background-color: white;
   cursor: pointer;
   border-radius: 50%;
+}
+
+.desc {
+  text-align: left;
+  font-size: 14px;
 }
