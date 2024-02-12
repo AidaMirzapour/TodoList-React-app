@@ -14,10 +14,6 @@ export default function TodoList() {
   const [todo, setTodo] = useState({});
   const [inputMode, setInputMode] = useState();
 
-  function onChangeItem(data) {
-    setTodo({ title: data.title, desc: data.desc });
-  }
-
   function getData() {
     const foundTodo = todos.find((item, cuIndex) => {
       return item.focus === true;
@@ -95,7 +91,7 @@ export default function TodoList() {
         <InputForm
           setInputMode={setInputMode}
           data={getData()}
-          onChangeItem={onChangeItem}
+          onChangeItem={setTodo}
           onSubmitForm={addTask}
           value="Add"
         />
@@ -103,7 +99,7 @@ export default function TodoList() {
         <InputForm
           setInputMode={setInputMode}
           data={getData()}
-          onChangeItem={onChangeItem}
+          onChangeItem={setTodo}
           onSubmitForm={editTask}
           value="Edit"
         />

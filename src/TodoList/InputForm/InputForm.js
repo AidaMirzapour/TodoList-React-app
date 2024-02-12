@@ -20,9 +20,20 @@ export default function InputForm(props) {
   };
   //--
 
+  // const addToTodo = useCallback(
+  //   (data) => {
+  //     props.onChangeItem({ ...data });
+  //   },
+  //   [props]
+  // );
+
   useEffect(() => {
-    props.onChangeItem(data, setData);
-  }, [data, props]);
+    addToTodo(data);
+  }, [data]);
+
+  function addToTodo(data) {
+    props.onChangeItem({ ...data });
+  }
 
   const handleSubmitClick = (e) => {
     if (typeof props.onSubmitForm !== "undefined")
