@@ -14,14 +14,14 @@ export default function TodoList() {
   const [todo, setTodo] = useState({});
   const [inputMode, setInputMode] = useState();
 
-  function getData() {
+  const getData = () => {
     const foundTodo = todos.find((item, cuIndex) => {
       return item.focus === true;
     });
     return foundTodo;
-  }
+  };
 
-  function editTask(e, index) {
+  const editTask = (e, index) => {
     const editedTask = todos.map((item) => {
       if (item.focus === true && todo.title && todo.desc) {
         let newTitle = item.title;
@@ -36,15 +36,14 @@ export default function TodoList() {
     setTodos(editedTask);
     setTodo({});
     setInputMode();
-  }
+  };
 
-  function deleteTask(e, index) {
+  const deleteTask = (e, index) => {
     const delTask = todos.filter((item, cuIndex) => index !== cuIndex);
-
     setTodos(delTask);
-  }
+  };
 
-  function onFocus(e, index) {
+  const onFocus = (e, index) => {
     const changeFocus = todos.map((item, cuIndex) => {
       if (index === cuIndex) {
         let newItem = { ...item, focus: true };
@@ -55,10 +54,10 @@ export default function TodoList() {
       }
     });
     setTodos(changeFocus);
-  }
+  };
 
-  function addTask(event) {
-    event.preventDefault();
+  const addTask = (e) => {
+    e.preventDefault();
     if (todo.title && todo.desc) {
       const newList = [
         ...todos,
@@ -68,7 +67,7 @@ export default function TodoList() {
       setTodo({});
       setInputMode([]);
     }
-  }
+  };
 
   return (
     <div className={style.TodoList}>

@@ -31,9 +31,9 @@ export default function InputForm(props) {
     addToTodo(data);
   }, [data]);
 
-  function addToTodo(data) {
+  const addToTodo = (data) => {
     props.onChangeItem({ ...data });
-  }
+  };
 
   const handleSubmitClick = (e) => {
     if (typeof props.onSubmitForm !== "undefined")
