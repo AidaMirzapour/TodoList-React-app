@@ -12,15 +12,22 @@ export default function TodoList() {
     { title: "task5", desc: "description5", focus: false },
   ]);
   const [todo, setTodo] = useState({});
-  const [inputMode, setInputMode] = useState(["edit", "add"]);
+  const [inputMode, setInputMode] = useState();
+
+  function onChangeItem(data) {
+    setTodo({ title: data.title, desc: data.desc });
+  }
+
+  function getData() {
+    const foundTodo = todos.find((item, cuIndex) => {
+      return item.focus === true;
+    });
+    return foundTodo;
+  }
 
   function editTask(e, index) {
-    //why index is undefine????
-    console.log(index);
-    //e.preventDefault();
-    const editedTask = todos.map((item, cuIndex) => {
-      //debugger;
-      if (item === cuIndex && todo.title && todo.desc) {
+    const editedTask = todos.map((item) => {
+      if (item.focus === true && todo.title && todo.desc) {
         let newTitle = item.title;
         let newDesc = item.desc;
         newTitle = todo.title;
@@ -32,16 +39,17 @@ export default function TodoList() {
     });
     setTodos(editedTask);
     setTodo({});
-    setInputMode([]);
+    setInputMode();
   }
 
   function deleteTask(e, index) {
     const delTask = todos.filter((item, cuIndex) => index !== cuIndex);
+
     setTodos(delTask);
   }
 
   function onFocus(e, index) {
-    todos.map((item, cuIndex) => {
+    const changeFocus = todos.map((item, cuIndex) => {
       if (index === cuIndex) {
         let newItem = { ...item, focus: true };
         return newItem;
@@ -50,6 +58,7 @@ export default function TodoList() {
         return newItem;
       }
     });
+    setTodos(changeFocus);
   }
 
   function addTask(event) {
@@ -79,23 +88,22 @@ export default function TodoList() {
           width="15"
           height="15"
           src="https://img.icons8.com/ios-glyphs/15/add--v1.png"
-          alt="add--v1"
+          alt="add"
         />
       </button>
       {inputMode === "add" ? (
         <InputForm
-          taskName={"add new task"}
-          onChangeTitle={(e) => setTodo({ ...todo, title: e.target.value })}
-          onChangeDesc={(e) => setTodo({ ...todo, desc: e.target.value })}
+          setInputMode={setInputMode}
+          data={getData()}
+          onChangeItem={onChangeItem}
           onSubmitForm={addTask}
           value="Add"
         />
       ) : inputMode === "edit" ? (
         <InputForm
-          //onEditBtnClick={(e, index) => index + 1}
-          taskName={`edit task`}
-          onChangeTitle={(e) => setTodo({ ...todo, title: e.target.value })}
-          onChangeDesc={(e) => setTodo({ ...todo, desc: e.target.value })}
+          setInputMode={setInputMode}
+          data={getData()}
+          onChangeItem={onChangeItem}
           onSubmitForm={editTask}
           value="Edit"
         />
