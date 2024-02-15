@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import TasksList from "./TasksList/TasksList";
 import InputForm from "./InputForm/InputForm";
 import style from "./TodoList.module.css";
@@ -14,60 +14,77 @@ export default function TodoList() {
   const [todo, setTodo] = useState({});
   const [inputMode, setInputMode] = useState();
 
-  const getData = () => {
+  const onChangeItem = useCallback((data) => {
+    setTodo({ title: data.title, desc: data.desc });
+  }, []);
+
+  const getData = useCallback(() => {
     const foundTodo = todos.find((item, cuIndex) => {
       return item.focus === true;
     });
     return foundTodo;
-  };
+  }, [todos]);
 
-  const editTask = (e, index) => {
-    const editedTask = todos.map((item) => {
-      if (item.focus === true && todo.title && todo.desc) {
-        let newTitle = item.title;
-        let newDesc = item.desc;
-        newTitle = todo.title;
-        newDesc = todo.desc;
-        return { title: newTitle, desc: newDesc };
-      } else {
-        return item;
-      }
-    });
-    setTodos(editedTask);
-    setTodo({});
-    setInputMode();
-  };
-
-  const deleteTask = (e, index) => {
-    const delTask = todos.filter((item, cuIndex) => index !== cuIndex);
-    setTodos(delTask);
-  };
-
-  const onFocus = (e, index) => {
-    const changeFocus = todos.map((item, cuIndex) => {
-      if (index === cuIndex) {
-        let newItem = { ...item, focus: true };
-        return newItem;
-      } else {
-        let newItem = { ...item, focus: false };
-        return newItem;
-      }
-    });
-    setTodos(changeFocus);
-  };
-
-  const addTask = (e) => {
-    e.preventDefault();
-    if (todo.title && todo.desc) {
-      const newList = [
-        ...todos,
-        { title: todo.title, desc: todo.desc, focus: false },
-      ];
-      setTodos(newList);
+  const editTask = useCallback(
+    (e, index) => {
+      const editedTask = todos.map((item) => {
+        if (item.focus === true && todo.title && todo.desc) {
+          let newTitle = item.title;
+          let newDesc = item.desc;
+          newTitle = todo.title;
+          newDesc = todo.desc;
+          return { title: newTitle, desc: newDesc };
+        } else {
+          return item;
+        }
+      });
+      setTodos(editedTask);
       setTodo({});
-      setInputMode([]);
-    }
-  };
+      setInputMode();
+    },
+    [todo.desc, todo.title, todos]
+  );
+
+  const deleteTask = useCallback(
+    (e, index) => {
+      const delTask = todos.filter((item, cuIndex) => index !== cuIndex);
+
+      setTodos(delTask);
+    },
+    [todos]
+  );
+
+  const onFocus = useCallback(
+    (e, index) => {
+      const changeFocus = todos.map((item, cuIndex) => {
+        if (index === cuIndex) {
+          let newItem = { ...item, focus: true };
+          return newItem;
+        } else {
+          let newItem = { ...item, focus: false };
+          return newItem;
+        }
+      });
+      setTodos(changeFocus);
+    },
+    [todos]
+  );
+
+  const addTask = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (todo.title && todo.desc) {
+        const newList = [
+          ...todos,
+          { title: todo.title, desc: todo.desc, focus: false },
+        ];
+        setTodos(newList);
+        setTodo({});
+        setInputMode([]);
+      }
+    },
+    [todo.desc, todo.title, todos]
+  );
 
   return (
     <div className={style.TodoList}>
@@ -90,7 +107,7 @@ export default function TodoList() {
         <InputForm
           setInputMode={setInputMode}
           data={getData()}
-          onChangeItem={setTodo}
+          onChangeItem={onChangeItem}
           onSubmitForm={addTask}
           value="Add"
         />
@@ -98,7 +115,7 @@ export default function TodoList() {
         <InputForm
           setInputMode={setInputMode}
           data={getData()}
-          onChangeItem={setTodo}
+          onChangeItem={onChangeItem}
           onSubmitForm={editTask}
           value="Edit"
         />
