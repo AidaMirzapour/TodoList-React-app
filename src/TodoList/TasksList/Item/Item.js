@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Button from "./Button/Button";
 import style from "./Item.module.css";
 
 export default function Item(props) {
-  const handleClick = (e) => {
-    if (typeof props.onTitleClick !== "undefined")
-      props.onTitleClick(e, props.index);
-  };
+  const handleClick = useCallback(
+    (e) => {
+      if (typeof props.onTitleClick !== "undefined")
+        props.onTitleClick(e, props.index);
+    },
+    [props]
+  );
 
-  const handleDeleteClick = (e) => {
-    if (typeof props.onDeleteBtnClick !== "undefined")
-      props.onDeleteBtnClick(e, props.index);
-  };
+  const handleDeleteClick = useCallback(
+    (e) => {
+      if (typeof props.onDeleteBtnClick !== "undefined")
+        props.onDeleteBtnClick(e, props.index);
+    },
+    [props]
+  );
 
-  const handleEditClick = (e) => {
-    if (typeof props.onEditBtnClick !== "undefined")
-      props.onEditBtnClick(e, props.index);
-  };
+  const handleEditClick = useCallback(
+    (e) => {
+      if (typeof props.onEditBtnClick !== "undefined")
+        props.onEditBtnClick(e, props.index);
+    },
+    [props]
+  );
 
   return (
     <div>

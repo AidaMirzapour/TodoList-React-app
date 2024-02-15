@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import style from "./InputForm.module.css";
 
 export default function InputForm(props) {
@@ -13,33 +13,35 @@ export default function InputForm(props) {
     };
   });
 
-  const handleOutsideClick = (e) => {
-    if (newRef.current && !newRef.current.contains(e.target)) {
-      props.setInputMode([]);
-    }
-  };
+  const handleOutsideClick = useCallback(
+    (e) => {
+      if (newRef.current && !newRef.current.contains(e.target)) {
+        props.setInputMode([]);
+      }
+    },
+    [props]
+  );
   //--
-
-  // const addToTodo = useCallback(
-  //   (data) => {
-  //     props.onChangeItem({ ...data });
-  //   },
-  //   [props]
-  // );
 
   useEffect(() => {
     addToTodo(data);
   }, [data]);
 
-  const addToTodo = (data) => {
-    props.onChangeItem({ ...data });
-  };
+  const addToTodo = useCallback(
+    (data) => {
+      props.onChangeItem({ ...data });
+    },
+    [props]
+  );
 
-  const handleSubmitClick = (e) => {
-    if (typeof props.onSubmitForm !== "undefined")
-      props.onSubmitForm(e, props.index);
-    setData({ title: "", desc: "" });
-  };
+  const handleSubmitClick = useCallback(
+    (e) => {
+      if (typeof props.onSubmitForm !== "undefined")
+        props.onSubmitForm(e, props.index);
+      setData({ title: "", desc: "" });
+    },
+    [props]
+  );
 
   return (
     <form className={style.InputForm} onSubmit={handleSubmitClick} ref={newRef}>
