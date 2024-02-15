@@ -2,7 +2,7 @@ import React from "react";
 import Item from "./Item/Item";
 import style from "./TasksList.module.css";
 
-export default function TasksList(props) {
+function TasksList(props) {
   return (
     <div className={style.TasksList}>
       {props.array.map(function (item, index) {
@@ -24,3 +24,4 @@ export default function TasksList(props) {
     </div>
   );
 }
+export default React.memo(TasksList);

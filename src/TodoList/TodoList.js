@@ -3,7 +3,7 @@ import TasksList from "./TasksList/TasksList";
 import InputForm from "./InputForm/InputForm";
 import style from "./TodoList.module.css";
 
-export default function TodoList() {
+function TodoList() {
   const [todos, setTodos] = useState([
     { title: "task1", desc: "description1", focus: false },
     { title: "task2", desc: "description2", focus: false },
@@ -123,3 +123,4 @@ export default function TodoList() {
     </div>
   );
 }
+export default React.memo(TodoList);

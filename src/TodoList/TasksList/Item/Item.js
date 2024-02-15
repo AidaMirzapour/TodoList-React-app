@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import Button from "./Button/Button";
 import style from "./Item.module.css";
 
-export default function Item(props) {
+function Item(props) {
   const handleClick = useCallback(
     (e) => {
       if (typeof props.onTitleClick !== "undefined")
@@ -68,3 +68,4 @@ export default function Item(props) {
     </div>
   );
 }
+export default React.memo(Item);
